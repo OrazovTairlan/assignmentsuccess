@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Information</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/animals">Animals game</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/thesaurus">Thesaurus game</a>
+                </li>
+                <li class="nav-item charts" style="cursor: pointer">
+                    <a class="nav-link">Charts</a>
+                </li>
+                <li class="nav-item admin">
+                    <a class="nav-link" href="/admin">Admin</a>
+                </li>
+                <li class="nav-item download" style="cursor: pointer">
+                    <a class="nav-link">PDF Download</a>
+                </li>
+                <li class="nav-item history" style="cursor: pointer">
+                    <a class="nav-link">History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/translate">Translate</a>
+                </li>
+
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title text-center">Did you know? Learn animal Information</h2>
+                </div>
+                <div class="card-body">
+                    <form id="animalForm">
+                        <div class="form-group">
+                            <label for="animalInput">Enter an animal name:</label>
+                            <input type="text" class="form-control" id="animalInput" placeholder="Enter an animal name" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <div id="animalInfo" class="card" style="display: none;">
+                <div class="card-body">
+                    <h4 class="card-title">Animal Information</h4>
+                    <p><strong>Scientific Name:</strong> <span id="scientificName"></span></p>
+                    <p><strong>Family:</strong> <span id="family"></span></p>
+                    <p><strong>Locations:</strong> <span id="locations"></span></p>
+                    <p><strong>Prey:</strong> <span id="prey"></span></p>
+                    <p><strong>Name of Young:</strong> <span id="nameOfYoung"></span></p>
+                    <p><strong>Group Behavior:</strong> <span id="groupBehavior"></span></p>
+                    <p><strong>Estimated Population Size:</strong> <span id="populationSize"></span></p>
+                    <p><strong>Biggest Threat:</strong> <span id="biggestThreat"></span></p>
+                    <p><strong>Most Distinctive Feature:</strong> <span id="distinctiveFeature"></span></p>
+                    <p><strong>Gestation Period:</strong> <span id="gestationPeriod"></span></p>
+                    <p><strong>Habitat:</strong> <span id="habitat"></span></p>
+                    <p><strong>Diet:</strong> <span id="diet"></span></p>
+                    <p><strong>Average Litter Size:</strong> <span id="litterSize"></span></p>
+                    <p><strong>Lifestyle:</strong> <span id="lifestyle"></span></p>
+                    <p><strong>Common Name:</strong> <span id="commonName"></span></p>
+                    <p><strong>Number of Species:</strong> <span id="numSpecies"></span></p>
+                    <p><strong>Location:</strong> <span id="location"></span></p>
+                    <p><strong>Slogan:</strong> <span id="slogan"></span></p>
+                    <p><strong>Group:</strong> <span id="group"></span></p>
+                    <p><strong>Color:</strong> <span id="color"></span></p>
+                    <p><strong>Skin Type:</strong> <span id="skinType"></span></p>
+                    <p><strong>Top Speed:</strong> <span id="topSpeed"></span></p>
+                    <p><strong>Lifespan:</strong> <span id="lifespan"></span></p>
+                    <p><strong>Weight:</strong> <span id="weight"></span></p>
+                    <p><strong>Height:</strong> <span id="height"></span></p>
+                    <p><strong>Age of Sexual Maturity:</strong> <span id="sexualMaturityAge"></span></p>
+                    <p><strong>Age of Weaning:</strong> <span id="weaningAge"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    if (JSON.parse(localStorage.getItem("user")).isAdmin == false) {
+        document.querySelector(".admin").remove()
+    }
+    document.querySelector(".charts").addEventListener("click", () => {
+        window.location.href = "/charts/" + JSON.parse(localStorage.getItem("user"))._id
+    })
+    document.querySelector(".download").addEventListener("click", () => {
+        console.log("click")
+        window.location.href = "/pdfdownload/" + JSON.parse(localStorage.getItem("user"))._id
+    })
+    document.querySelector(".history").addEventListener("click", () => {
+        window.location.href = "/history/" + JSON.parse(localStorage.getItem("user"))._id
+    })
+    document.getElementById('animalForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var animalName = document.getElementById('animalInput').value.trim();
+
+        fetchAnimalInfo(animalName);
+    });
+
+    function fetchAnimalInfo(animalName) {
+        fetch('/animals?value=' + animalName + "&id=" + JSON.parse(localStorage.getItem("user"))._id)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Animal not found!');
+                }
+                return response.json();
+            })
+            .then(data => {
+                displayAnimalInfo(data.animals[0]);
+            })
+            .catch(error => {
+                alert(error.message);
+            });
+    }
+
+    function displayAnimalInfo(animalData) {
+        var animalInfoDiv = document.getElementById('animalInfo');
+        var taxonomy = animalData.taxonomy;
+        var characteristics = animalData.characteristics;
+        var locations = animalData.locations;
+
+        animalInfoDiv.style.display = 'block';
+        document.getElementById('scientificName').textContent = taxonomy.scientific_name;
+        document.getElementById('family').textContent = taxonomy.family;
+        document.getElementById('locations').textContent = locations.join(', ');
+        document.getElementById('prey').textContent = characteristics.prey;
+        document.getElementById('nameOfYoung').textContent = characteristics.name_of_young;
+        document.getElementById('groupBehavior').textContent = characteristics.group_behavior;
+        document.getElementById('populationSize').textContent = characteristics.estimated_population_size;
+        document.getElementById('biggestThreat').textContent = characteristics.biggest_threat;
+        document.getElementById('distinctiveFeature').textContent = characteristics.most_distinctive_feature;
+        document.getElementById('gestationPeriod').textContent = characteristics.gestation_period;
+        document.getElementById('habitat').textContent = characteristics.habitat;
+        document.getElementById('diet').textContent = characteristics.diet;
+        document.getElementById('litterSize').textContent = characteristics.average_litter_size;
+        document.getElementById('lifestyle').textContent = characteristics.lifestyle;
+        document.getElementById('commonName').textContent = characteristics.common_name;
+        document.getElementById('numSpecies').textContent = characteristics.number_of_species;
+        document.getElementById('location').textContent = characteristics.location;
+        document.getElementById('slogan').textContent = characteristics.slogan;
+        document.getElementById('group').textContent = characteristics.group;
+        document.getElementById('color').textContent = characteristics.color;
+        document.getElementById('skinType').textContent = characteristics.skin_type;
+        document.getElementById('topSpeed').textContent = characteristics.top_speed;
+        document.getElementById('lifespan').textContent = characteristics.lifespan;
+        document.getElementById('weight').textContent = characteristics.weight;
+        document.getElementById('height').textContent = characteristics.height;
+        document.getElementById('sexualMaturityAge').textContent = characteristics.age_of_sexual_maturity;
+        document.getElementById('weaningAge').textContent = characteristics.age_of_weaning;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synonyms and Antonyms</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/animals">Animals game</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/thesaurus">Thesaurus game</a>
+                </li>
+                <li class="nav-item charts" style="cursor: pointer">
+                    <a class="nav-link">Charts</a>
+                </li>
+                <li class="nav-item admin">
+                    <a class="nav-link" href="/admin">Admin</a>
+                </li>
+                <li class="nav-item download" style="cursor: pointer">
+                    <a class="nav-link">PDF Download</a>
+                </li>
+                <li class="nav-item history" style="cursor: pointer">
+                    <a class="nav-link">History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/translate">Translate</a>
+                </li>
+
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title text-center">Synonyms and Antonyms</h2>
+                </div>
+                <div class="card-body">
+                    <form id="wordForm">
+                        <div class="form-group">
+                            <label for="wordInput">Enter a word:</label>
+                            <input type="text" class="form-control" id="wordInput" placeholder="Enter a word" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <div id="synonymsAntonyms" class="card" style="display: none;">
+                <div class="card-body">
+                    <h4 class="card-title">Synonyms and Antonyms</h4>
+                    <p><strong>Word:</strong> <span id="word"></span></p>
+                    <p><strong>Synonyms:</strong> <span id="synonyms"></span></p>
+                    <p><strong>Antonyms:</strong> <span id="antonyms"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+
+
+
+    if (JSON.parse(localStorage.getItem("user")).isAdmin == false) {
+        document.querySelector(".admin").remove()
+    }
+    document.querySelector(".charts").addEventListener("click", () => {
+        window.location.href = "/charts/" + JSON.parse(localStorage.getItem("user"))._id
+    })
+    document.querySelector(".download").addEventListener("click", () => {
+        console.log("click")
+        window.location.href = "/pdfdownload/" + JSON.parse(localStorage.getItem("user"))._id
+    })
+    document.querySelector(".history").addEventListener("click", () => {
+        window.location.href = "/history/" + JSON.parse(localStorage.getItem("user"))._id
+    })
+
+    document.querySelector(".charts").addEventListener("click", () => {
+        window.location.href = "/charts/" + JSON.parse(localStorage.getItem("user"))._id
+    })
+    document.querySelector(".download").addEventListener("click", () => {
+        console.log("click")
+        window.location.href = "/pdfdownload/" + JSON.parse(localStorage.getItem("user"))._id
+    })
+    document.querySelector(".history").addEventListener("click", () => {
+        window.location.href = "/history/" + JSON.parse(localStorage.getItem("user"))._id
+    })
+    document.getElementById('wordForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var word = document.getElementById('wordInput').value.trim();
+
+        fetchSynonymsAntonyms(word);
+    });
+
+    function fetchSynonymsAntonyms(word) {
+        fetch('/thesaurus?value=' + word + "&id=" + JSON.parse(localStorage.getItem("user"))._id)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Word not found!');
+                }
+                return response.json();
+            })
+            .then(data => {
+                displaySynonymsAntonyms(data.thesaurus[0]);
+            })
+            .catch(error => {
+                alert(error.message);
+            });
+    }
+
+    function displaySynonymsAntonyms(data) {
+        var synonymsAntonymsDiv = document.getElementById('synonymsAntonyms');
+
+        synonymsAntonymsDiv.style.display = 'block';
+        document.getElementById('word').textContent = data.word;
+        document.getElementById('synonyms').textContent = data.synonyms.join(', ');
+        document.getElementById('antonyms').textContent = data.antonyms.join(', ');
+    }
+</script>
+
+</body>
+</html>
