@@ -6,6 +6,23 @@ const axios = require("axios");
 const ejs = require("ejs");
 const puppeteer = require("puppeteer");
 
+
+
+const questions = {
+    "questions": [
+        {
+            "question": "What is the capital of France?",
+            "options": ["Paris", "Berlin", "Rome", "London"],
+            "correctAnswer": "Paris"
+        },
+        {
+            "question": "What is the capital of Japan?",
+            "options": ["Tokyo", "Beijing", "Seoul", "Manila"],
+            "correctAnswer": "Tokyo"
+        }
+    ]
+}
+
 // Initialize Express app
 const app = express();
 require("web-streams-polyfill")
@@ -138,6 +155,15 @@ app.get("/admin", async function (req, res) {
     }
 });
 
+
+
+
+
+
+
+app.get("/quiz", (req, res) => {
+    res.render("quiz", {});
+})
 // Charts Route
 app.get("/charts/:id", async (req, res) => {
     try {
@@ -538,7 +564,7 @@ app.get("/history/:id", async (req, res) => {
 // Create User Route
 app.post("/create-user", async (req, res) => {
     try {
-       await UserModel.create({
+        await UserModel.create({
             username: req.body.username,
             password: req.body.password,
             creationDate: new Date(),
