@@ -4,76 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animal Information</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="/animals">Animals game</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/thesaurus">Thesaurus game</a>
-                </li>
-                <li class="nav-item charts" style="cursor: pointer">
-                    <a class="nav-link">Charts</a>
-                </li>
-                <li class="nav-item admin">
-                    <a class="nav-link" href="/admin">Admin</a>
-                </li>
-                <li class="nav-item download" style="cursor: pointer">
-                    <a class="nav-link">PDF Download</a>
-                </li>
-                <li class="nav-item history" style="cursor: pointer">
-                    <a class="nav-link">History</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/translate">Translate</a>
-                </li>
-
-
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Login</a>
-                </li>
+<nav>
+    <div class="nav-wrapper">
+        <div class="container">
+            <a href="#" class="brand-logo">Logo</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/animals" class="animals">Animals game</a></li>
+                <li><a href="/thesaurus" class="thesaurus">Thesaurus game</a></li>
+                <li><a href="/charts" class="dropdown-trigger charts" data-target="dropdown1">Charts</a></li>
+                <li><a href="/admin" class = "admin">Admin</a></li>
+                <li><a href="/pdfpage" class="download-trigger pdfdownload">PDF Download</a></li>
+                <li><a href="/main" class="download-trigger main">Main</a></li>
+                <li><a href="/history" class="history-trigger history">History</a></li>
+                <li><a href="/translate" class = "translate">Translate</a></li>
+                <li><a href="/" class = "login">Login</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
             <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title text-center">Did you know? Learn animal Information</h2>
-                </div>
-                <div class="card-body">
+                <div class="card-content">
+                    <span class="card-title center">Did you know? Learn animal Information</span>
                     <form id="animalForm">
-                        <div class="form-group">
-                            <label for="animalInput">Enter an animal name:</label>
-                            <input type="text" class="form-control" id="animalInput" placeholder="Enter an animal name" required>
+                        <div class="input-field">
+                            <input type="text" id="animalInput" class="validate" required>
+                            <label for="animalInput">Enter an animal name</label>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        <button type="submit" class="btn waves-effect waves-light">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row justify-content-center mt-4">
-        <div class="col-md-6">
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
             <div id="animalInfo" class="card" style="display: none;">
-                <div class="card-body">
-                    <h4 class="card-title">Animal Information</h4>
+                <div class="card-content">
+                    <span class="card-title">Animal Information</span>
                     <p><strong>Scientific Name:</strong> <span id="scientificName"></span></p>
                     <p><strong>Family:</strong> <span id="family"></span></p>
                     <p><strong>Locations:</strong> <span id="locations"></span></p>
@@ -107,30 +84,18 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const elems = document.querySelectorAll('.sidenav');
+        const instances = M.Sidenav.init(elems);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        document.getElementById('animalForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const animalName = document.getElementById('animalInput').value.trim();
+            fetchAnimalInfo(animalName);
+        });
+    });
 
     if (JSON.parse(localStorage.getItem("user")).isAdmin == false) {
         document.querySelector(".admin").remove()
@@ -145,13 +110,6 @@
     document.querySelector(".history").addEventListener("click", () => {
         window.location.href = "/history/" + JSON.parse(localStorage.getItem("user"))._id
     })
-    document.getElementById('animalForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        var animalName = document.getElementById('animalInput').value.trim();
-
-        fetchAnimalInfo(animalName);
-    });
-
     function fetchAnimalInfo(animalName) {
         fetch('/animals?value=' + animalName + "&id=" + JSON.parse(localStorage.getItem("user"))._id)
             .then(response => {
@@ -169,10 +127,10 @@
     }
 
     function displayAnimalInfo(animalData) {
-        var animalInfoDiv = document.getElementById('animalInfo');
-        var taxonomy = animalData.taxonomy;
-        var characteristics = animalData.characteristics;
-        var locations = animalData.locations;
+        const animalInfoDiv = document.getElementById('animalInfo');
+        const taxonomy = animalData.taxonomy;
+        const characteristics = animalData.characteristics;
+        const locations = animalData.locations;
 
         animalInfoDiv.style.display = 'block';
         document.getElementById('scientificName').textContent = taxonomy.scientific_name;

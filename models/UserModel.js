@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     username: String,
-    isAdmin: Boolean,
+    role: String,
     password: String,
     creationDate: Date,
     updateDate: Date,

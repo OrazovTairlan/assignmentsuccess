@@ -4,54 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/materialize-css@1.0.0/dist/css/materialize.min.css" rel="stylesheet">
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="/animals">Animals game</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/thesaurus">Thesaurus game</a>
-                </li>
-                <li class="nav-item charts" style="cursor: pointer">
-                    <a class="nav-link">Charts</a>
-                </li>
-                <li class="nav-item admin">
-                    <a class="nav-link" href="/admin">Admin</a>
-                </li>
-                <li class="nav-item download" style="cursor: pointer">
-                    <a class="nav-link">PDF Download</a>
-                </li>
-                <li class="nav-item history" style="cursor: pointer">
-                    <a class="nav-link">History</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/translate">Translate</a>
-                </li>
-
-
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Login</a>
-                </li>
+<nav>
+    <div class="nav-wrapper">
+        <div class="container">
+            <a href="#" class="brand-logo">Logo</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/animals" class="animals">Animals game</a></li>
+                <li><a href="/thesaurus" class="thesaurus">Thesaurus game</a></li>
+                <li><a href="/charts" class="dropdown-trigger charts" data-target="dropdown1">Charts</a></li>
+                <li><a href="/admin" class = "admin">Admin</a></li>
+                <li><a href="/pdfpage" class="download-trigger pdfdownload">PDF Download</a></li>
+                <li><a href="/main" class="download-trigger main">Main</a></li>
+                <li><a href="/history" class="history-trigger history">History</a></li>
+                <li><a href="/translate" class = "translate">Translate</a></li>
+                <li><a href="/" class = "login">Login</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="/animals">Animals game</a></li>
+    <li><a href="/thesaurus">Thesaurus game</a></li>
+    <li class="charts" style="cursor: pointer"><a>Charts</a></li>
+    <li class="admin"><a href="/admin">Admin</a></li>
+    <li class="download" style="cursor: pointer"><a>PDF Download</a></li>
+    <li class="history" style="cursor: pointer"><a>History</a></li>
+    <li><a href="/translate">Translate</a></li>
+    <li><a href="/">Login</a></li>
+</ul>
+
 <div class="container mt-5">
     <h1 class="mb-4">Admin Page</h1>
-    <table class="table table-striped">
+    <table class="striped">
         <thead>
         <tr>
             <th>Тип</th>
@@ -62,91 +52,72 @@
         <tr>
             <td>Истории запросов</td>
             <td>
-                <button class="btn btn-primary download-chart" data-type="userHistory">Download</button>
+                <button class="btn waves-effect waves-light download-chart" data-type="userHistory">Download</button>
             </td>
         </tr>
         <tr>
             <td>Список пользователей</td>
             <td>
-                <button class="btn btn-primary download-chart" data-type="userList">Download</button>
+                <button class="btn waves-effect waves-light download-chart" data-type="userList">Download</button>
             </td>
         </tr>
         <tr>
             <td>Графики</td>
             <td>
-                <button class="btn btn-primary download-chart" data-type="charts">Download</button>
+                <button class="btn waves-effect waves-light download-chart" data-type="charts">Download</button>
             </td>
         </tr>
+        <tr>
             <td>Список историй</td>
             <td>
-                <button class="btn btn-primary download-chart" data-type="commonData">Download</button>
+                <button class="btn waves-effect waves-light download-chart" data-type="commonData">Download</button>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const elems = document.querySelectorAll('.sidenav');
+        const instances = M.Sidenav.init(elems);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    if (JSON.parse(localStorage.getItem("user")).isAdmin == false) {
-        document.querySelector(".admin").remove()
-    }
-    document.querySelector(".charts").addEventListener("click", () => {
-        window.location.href = "/charts/" + JSON.parse(localStorage.getItem("user"))._id
-    })
-    document.querySelector(".download").addEventListener("click", () => {
-        console.log("click")
-        window.location.href = "/pdfdownload/" + JSON.parse(localStorage.getItem("user"))._id
-    })
-    document.querySelector(".history").addEventListener("click", () => {
-        window.location.href = "/history/" + JSON.parse(localStorage.getItem("user"))._id
-    })
-    document.querySelectorAll(".download-chart").forEach(button => {
-        button.addEventListener("click", async () => {
-            const type = button.dataset.type;
-            const options = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            };
-            fetch(`/pdfhistory?type=${type}&id=${JSON.parse(localStorage.getItem("user"))._id}`)
-                .then(response => response.blob())
-                .then(blob => {
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'history.pdf';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                })
+        if (JSON.parse(localStorage.getItem("user")).isAdmin == false) {
+            document.querySelector(".admin").remove()
+        }
+        document.querySelector(".charts").addEventListener("click", () => {
+            window.location.href = "/charts/" + JSON.parse(localStorage.getItem("user"))._id
+        })
+        document.querySelector(".download").addEventListener("click", () => {
+            console.log("click")
+            window.location.href = "/pdfdownload/" + JSON.parse(localStorage.getItem("user"))._id
+        })
+        document.querySelector(".history").addEventListener("click", () => {
+            window.location.href = "/history/" + JSON.parse(localStorage.getItem("user"))._id
+        })
+        document.querySelectorAll(".download-chart").forEach(button => {
+            button.addEventListener("click", async () => {
+                const type = button.dataset.type;
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                fetch(`/pdfhistory?type=${type}&id=${JSON.parse(localStorage.getItem("user"))._id}`)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'history.pdf';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    })
+            });
         });
     });
 </script>

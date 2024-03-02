@@ -8,6 +8,9 @@ const puppeteer = require("puppeteer");
 
 const userRoutes = require("./routes/user");
 const adminRoutes = require("./routes/admin");
+const quizRoutes = require("./routes/quiz");
+const itemRoutes = require("./routes/items");
+const ItemModel = require("./models/ItemModel");
 const authRoutes = require("./routes/auth");
 
 // Initialize Express app
@@ -86,9 +89,13 @@ app.use(adminRoutes);
 app.use(userRoutes);
 app.use(authRoutes);
 
-app.get("/quiz", (req, res) => {
-    res.render("quiz", {});
-});
+app.use(quizRoutes)
+
+
+
+
+
+app.use(itemRoutes)
 // Charts Route
 app.get("/charts/:id", async (req, res) => {
     try {
@@ -241,55 +248,28 @@ app.get("/thesaurus", async (req, res) => {
 });
 
 
-app.get("/main", (req, res) => {
+app.get("/main", async (req, res) => {
+    let items = await ItemModel.find({}).lean()
+    items = items.map((item) => {
+        return {
+            ...item,
+            images: [
+                item.imageFirst,
+                item.imageSecond,
+                item.imageThree,
+            ],
+            name: {
+                kz: item.name.kz,
+                en: item.name.en
+            },
+            description: {
+                kz: item.description.kz,
+                en: item.description.en
+            },
+        }
+    })
     res.render("main", {
-        items: [
-            {
-                "images": [
-                    "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-                    "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-                    "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-                ],
-                name: {
-                    kz: "name",
-                    en: "name"
-                },
-                description: {
-                    kz: "description",
-                    en: "description"
-                },
-            },
-            {
-                "images": [
-                    "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-                    "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-                    "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-                ],
-                name: {
-                    kz: "name",
-                    en: "name"
-                },
-                description: {
-                    kz: "description",
-                    en: "description"
-                },
-            },
-            {
-                "images": [
-                    "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-                    "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-                    "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-                ],
-                name: {
-                    kz: "name",
-                    en: "name"
-                },
-                description: {
-                    kz: "description",
-                    en: "description"
-                }
-            },
-        ]
+        items: items
     })
 })
 

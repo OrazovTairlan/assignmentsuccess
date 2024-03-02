@@ -15,7 +15,7 @@ router.post("/create-user", async (req, res) => {
             creationDate: new Date(),
             updateDate: new Date(),
             deletionDate: new Date(),
-            admin: req.body.isAdmin
+            role: "regular user"
         });
         res.json("User created successfully");
     } catch (err) {

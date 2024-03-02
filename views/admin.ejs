@@ -2,295 +2,272 @@
 <html>
 <head>
     <title>Admin Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-            crossorigin="anonymous"></script>
+
+
+
+
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="/animals">Animals game</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/thesaurus">Thesaurus game</a>
-                </li>
-                <li class="nav-item charts" style="cursor: pointer">
-                    <a class="nav-link">Charts</a>
-                </li>
-                <li class="nav-item admin">
-                    <a class="nav-link" href="/admin">Admin</a>
-                </li>
-                <li class="nav-item download" style="cursor: pointer">
-                    <a class="nav-link">PDF Download</a>
-                </li>
-                <li class="nav-item history" style="cursor: pointer">
-                    <a class="nav-link">History</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/translate">Translate</a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Login</a>
-                </li>
+<nav>
+    <div class="nav-wrapper">
+        <div class="container">
+            <a href="#" class="brand-logo">Logo</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/animals" class="animals">Animals game</a></li>
+                <li><a href="/thesaurus" class="thesaurus">Thesaurus game</a></li>
+                <li><a href="/charts" class="dropdown-trigger charts" data-target="dropdown1">Charts</a></li>
+                <li><a href="/admin" class = "admin">Admin</a></li>
+                <li><a href="/pdfpage" class="download-trigger pdfdownload">PDF Download</a></li>
+                <li><a href="/main" class="download-trigger main">Main</a></li>
+                <li><a href="/history" class="history-trigger history">History</a></li>
+                <li><a href="/translate" class = "translate">Translate</a></li>
+                <li><a href="/" class = "login">Login</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+    <li><a href="#!">Option 1</a></li>
+    <li><a href="#!">Option 2</a></li>
+    <li><a href="#!">Option 3</a></li>
+</ul>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="/animals">Animals game</a></li>
+    <li><a href="/thesaurus">Thesaurus game</a></li>
+    <li><a href="/admin">Admin</a></li>
+    <li><a href="#" class="download-trigger">PDF Download</a></li>
+    <li><a href="#" class="history-trigger">History</a></li>
+    <li><a href="/translate">Translate</a></li>
+    <li><a href="/">Login</a></li>
+</ul>
+
 <div class="container mt-5">
     <h1 class="mb-4">User Management</h1>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">User ID</th>
-                <th scope="col">Username</th>
-                <th scope="col">Creation Date</th>
-                <th scope="col">Admin</th>
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% users.forEach(user => { %>
+    <div class="row">
+        <div class="col s12">
+            <table class="striped">
+                <thead>
                 <tr>
-                    <td><%= user._id %></td>
-                    <td><%= user.username %></td>
-                    <td><%= user.creationDate %></td>
-                    <td><%= user.isAdmin %></td>
-                    <td>
-                        <button type="button" data-edit="<%= JSON.stringify(user) %>" class="btn btn-primary edit"
-                                data-bs-toggle="modal" data-bs-target="#exampleModal">Edit
-                        </button>
-                        <button type="button" data-edit="<%= JSON.stringify(user) %>" class="btn btn-danger delete">
-                            Delete
-                        </button>
-                    </td>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Creation Date</th>
+                    <th>Admin</th>
+                    <th>Actions</th>
                 </tr>
-            <% }); %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <% users.forEach(user => { %>
+                    <tr>
+                        <td><%= user._id %></td>
+                        <td><%= user.username %></td>
+                        <td><%= user.creationDate %></td>
+                        <td><%= user.isAdmin %></td>
+                        <td>
+                            <button type="button" data-edit="<%= JSON.stringify(user) %>" class="btn btn-small blue lighten-1 edit modal-trigger" data-target="editModal">Edit</button>
+                            <button type="button" data-edit="<%= JSON.stringify(user) %>" class="btn btn-small red lighten-1 delete">Delete</button>
+                        </td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- Edit Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Username</label>
-                        <input type="text" class="form-control username-edit" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Password</label>
-                        <input type="text" class="form-control username-password" id="recipient-name">
-                    </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="edit-admin" id="subscribe" name="subscribe">
-                        <label class="form-check-label" for="subscribe">Admin</label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn edit-submit btn-primary">Save Changes</button>
-                </div>
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h5>Edit User</h5>
+            <div class="input-field">
+                <input type="text" class="validate username-edit">
+                <label for="username-edit">Username</label>
             </div>
+            <div class="input-field">
+                <input type="password" class="validate username-password">
+                <label for="username-password">Password</label>
+            </div>
+            <p>
+                <label>
+                    <input type="checkbox" class="filled-in edit-admin" />
+                    <span>Admin</span>
+                </label>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn blue lighten-1 edit-submit">Save Changes</a>
         </div>
     </div>
 
     <!-- Create Modal -->
-    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Username</label>
-                        <input type="text" class="form-control create-username" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Password</label>
-                        <input type="text" class="form-control create-password" id="recipient-name">
-                    </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="create-admin" id="subscribe" name="subscribe">
-                        <label class="form-check-label" for="subscribe">Admin</label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn create-submit btn-primary">Create User</button>
-                </div>
+    <div id="createModal" class="modal">
+        <div class="modal-content">
+            <h5>Create User</h5>
+            <div class="input-field">
+                <input type="text" class="validate create-username">
+                <label for="create-username">Username</label>
             </div>
+            <div class="input-field">
+                <input type="password" class="validate create-password">
+                <label for="create-password">Password</label>
+            </div>
+            <p>
+                <label>
+                    <input type="checkbox" class="filled-in create-admin" />
+                    <span>Admin</span>
+                </label>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn blue lighten-1 create-submit">Create User</a>
         </div>
     </div>
 
-    <button class="btn btn-success create-btn" data-bs-toggle="modal" data-bs-target="#createModal">New User</button>
+    <a class="btn-floating create-btn btn-large waves-effect waves-light green modal-trigger" href="#createModal"><i class="material-icons">add</i></a>
 </div>
 
 <div class="container mt-5">
-    <h1 class="mb-4">Item management</h1>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">User ID</th>
-                <th scope="col">Username</th>
-                <th scope="col">Creation Date</th>
-                <th scope="col">Admin</th>
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% users.forEach(user => { %>
+    <h1 class="mb-4">Item Management</h1>
+    <div class="row">
+        <div class="col s12">
+            <table class="striped">
+                <thead>
                 <tr>
-                    <td><%= user._id %></td>
-                    <td><%= user.username %></td>
-                    <td><%= user.creationDate %></td>
-                    <td><%= user.isAdmin %></td>
-                    <td>
-                        <button type="button" data-edit="<%= JSON.stringify(user) %>" class="btn btn-primary edit"
-                                data-bs-toggle="modal" data-bs-target="#exampleModal">Edit
-                        </button>
-                        <button type="button" data-edit="<%= JSON.stringify(user) %>" class="btn btn-danger delete">
-                            Delete
-                        </button>
-                    </td>
+                    <th>Name of news</th>
+                    <th>Description of news</th>
+                    <th>First image</th>
+                    <th>Second image</th>
+                    <th>Three image</th>
                 </tr>
-            <% }); %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <% items.forEach(user => { %>
+                    <tr>
+                        <td><%= user.name[activeLanguage] %></td>
+                        <td><%= user.description[activeLanguage] %></td>
+                        <td><img src = "<%= user.images[0] %>" style = "width: 297px; height: 297px"/></td>
+                        <td><img src = "<%= user.images[1] %>" style = "width: 297px; height: 297px"/></td>
+                        <td><img src = "<%= user.images[2] %>" style = "width: 297px; height: 297px"/></td>
+                        <td>
+                            <button type="button" data-edit="<%= JSON.stringify(user) %>" class="btn btn-small blue lighten-1 edit-item modal-trigger" data-target="editItems">Edit</button>
+                            <button type="button" data-edit="<%= JSON.stringify(user) %>" class="btn btn-small red lighten-1 delete-item delete">Delete</button>
+                        </td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- Edit Modal -->
-    <div class="modal fade" id="editItems" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create item</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="kazakh-name" class="col-form-label">Kazakh name</label>
-                        <input type="text" class="form-control kazakh-name" id="kazakh-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="english-name" class="col-form-label">English name</label>
-                        <input type="text" class="form-control english-name" id="english-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="kazakh-description" class="col-form-label">Kazakh description</label>
-                        <input type="text" class="form-control kazakh-description" id="kazakh-description">
-                    </div>
-                    <div class="mb-3">
-                        <label for="english-description" class="col-form-label">English description</label>
-                        <input type="text" class="form-control english-description" id="english-description">
-                    </div>
-                    <div class="mb-3">
-                        <label for="image-first" class="col-form-label">Image first</label>
-                        <input type="text" class="form-control image-first" id="image-first">
-                    </div>
-                    <div class="mb-3">
-                        <label for="image-second" class="col-form-label">Image second</label>
-                        <input type="text" class="form-control image-second" id="image-second">
-                    </div>
-                    <div class="mb-3">
-                        <label for="image-three" class="col-form-label">Image three</label>
-                        <input type="text" class="form-control image-three" id="image-three">
-                    </div>
-                    <div class="mb-3">
-                        <label for="date-create" class="col-form-label">Date of creation</label>
-                        <input type="text" class="form-control date-create" id="date-create">
-                    </div>
-                    <div class="mb-3">
-                        <label for="date-update" class="col-form-label">Date of update</label>
-                        <input type="text" class="form-control date-update" id="date-update">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn create-submit btn-primary">Create User</button>
-                </div>
+    <div id="editItems" class="modal">
+        <div class="modal-content">
+            <h5>Edit Item</h5>
+            <div class="input-field">
+                <input type="text" class="validate kazakh-name">
+                <label for="kazakh-name">Kazakh Name</label>
             </div>
+            <div class="input-field">
+                <input type="text" class="validate english-name">
+                <label for="english-name">English Name</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="validate kazakh-description">
+                <label for="kazakh-description">Kazakh Description</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="validate english-description">
+                <label for="english-description">English Description</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="validate image-first">
+                <label for="image-first">Image First</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="validate image-second">
+                <label for="image-second">Image Second</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="validate image-three">
+                <label for="image-three">Image Three</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="validate date-create">
+                <label for="date-create">Date of Creation</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="validate date-update">
+                <label for="date-update">Date of Update</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-flat waves-effect waves-light" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary edit-item-submit create-submit">Create Item</button>
         </div>
     </div>
 
     <!-- Create Modal -->
-    <div class="modal fade" id="addItems" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create item</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="kazakh-name" class="col-form-label">Kazakh name</label>
-                        <input type="text" class="form-control kazakh-name" id="kazakh-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="english-name" class="col-form-label">English name</label>
-                        <input type="text" class="form-control english-name" id="english-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="kazakh-description" class="col-form-label">Kazakh description</label>
-                        <input type="text" class="form-control kazakh-description" id="kazakh-description">
-                    </div>
-                    <div class="mb-3">
-                        <label for="english-description" class="col-form-label">English description</label>
-                        <input type="text" class="form-control english-description" id="english-description">
-                    </div>
-                    <div class="mb-3">
-                        <label for="image-first" class="col-form-label">Image first</label>
-                        <input type="text" class="form-control image-first" id="image-first">
-                    </div>
-                    <div class="mb-3">
-                        <label for="image-second" class="col-form-label">Image second</label>
-                        <input type="text" class="form-control image-second" id="image-second">
-                    </div>
-                    <div class="mb-3">
-                        <label for="image-three" class="col-form-label">Image three</label>
-                        <input type="text" class="form-control image-three" id="image-three">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn create-submit btn-primary">Create User</button>
-                </div>
+    <div id="addItems" class="modal addItems">
+        <div class="modal-content">
+            <h5>Create Item</h5>
+            <div class="input-field">
+                <input type="text" class="validate kazakh-name">
+                <label for="kazakh-name">Kazakh Name</label>
             </div>
+            <div class="input-field">
+                <input type="text" class="validate english-name">
+                <label for="english-name">English Name</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="validate kazakh-description">
+                <label for="kazakh-description">Kazakh Description</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="validate english-description">
+                <label for="english-description">English Description</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="validate image-first">
+                <label for="image-first">Image First</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="validate image-second">
+                <label for="image-second">Image Second</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="validate image-three">
+                <label for="image-three">Image Three</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-flat waves-effect waves-light" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary create-item-submit create-submit">Create Item</button>
         </div>
     </div>
 
-    <button class="btn btn-success create-btn" data-bs-toggle="modal" data-bs-target="#addItems">New User</button>
+    <a class="btn-floating create-btn create-item btn-large waves-effect waves-light green modal-trigger" href="#addItems"><i class="material-icons">add</i></a>
 </div>
+
+
 </body>
 
 <script>
     document.querySelector(".charts").addEventListener("click", () => {
         window.location.href = "/charts/" + JSON.parse(localStorage.getItem("user"))._id
     })
-    document.querySelector(".download").addEventListener("click", () => {
+    document.querySelector(".pdfdownload").addEventListener("click", () => {
         console.log("click")
         window.location.href = "/pdfdownload/" + JSON.parse(localStorage.getItem("user"))._id
     })
@@ -300,10 +277,20 @@
     let a = '<%- JSON.stringify(users) %>';
 
     let checked = false
+    document.addEventListener('DOMContentLoaded', function() {
+        var modals = document.querySelectorAll('.modal');
+        M.Modal.init(modals);
+    });
     console.log(a)
     console.log(JSON.parse(a))
     for (let i = 0; i < Array.from(document.querySelectorAll(".edit")).length; i++) {
         Array.from(document.querySelectorAll(".edit"))[i].addEventListener("click", async (event) => {
+
+
+
+            console.log("click")
+            let editModal = M.Modal.getInstance(document.getElementById("editModal"))
+            editModal.open()
             console.log(JSON.parse(event.target.dataset.edit))
             console.log(event.target.closest("tr"))
             const input = document.querySelector(".username-edit").value = JSON.parse(event.target.dataset.edit).username
@@ -338,15 +325,16 @@
     }
     for (let i = 0; i < Array.from(document.querySelectorAll(".edit-item")).length; i++) {
         Array.from(document.querySelectorAll(".edit-item"))[i].addEventListener("click", async (event) => {
+            console.log("click edit")
             document.querySelector(".kazakh-name").value = JSON.parse(event.target.dataset.edit).name.kz
             document.querySelector(".english-name").value = JSON.parse(event.target.dataset.edit).name.en
             document.querySelector(".kazakh-description").value = JSON.parse(event.target.dataset.edit).description.kz
             document.querySelector(".english-description").value = JSON.parse(event.target.dataset.edit).description.en
-            document.querySelector(".image-first").value = JSON.parse(event.target.dataset.edit).imageFirst
-            document.querySelector(".image-second").value = JSON.parse(event.target.dataset.edit).imageSecond
-            document.querySelector(".image-three").value = JSON.parse(event.target.dataset.edit).imageThree
-            document.querySelector(".date-create").value = JSON.parse(event.target.dataset.edit).dateCreate
-            document.querySelector(".date-update").value = JSON.parse(event.target.dataset.edit).dateUpdate
+            document.querySelector(".image-first").value = JSON.parse(event.target.dataset.edit).images[0]
+            document.querySelector(".image-second").value = JSON.parse(event.target.dataset.edit).images[1]
+            document.querySelector(".image-three").value = JSON.parse(event.target.dataset.edit).images[2]
+            document.querySelector(".date-create").value = JSON.parse(event.target.dataset.edit).createdAt,
+            document.querySelector(".date-update").value = JSON.parse(event.target.dataset.edit).updatedAt,
             console.log(JSON.parse(event.target.dataset.edit))
             console.log(event.target.closest("tr"))
             document.querySelector(".edit-item-submit").addEventListener("click", async () => {
@@ -370,9 +358,9 @@
                 };
 
                 // Make the fetch request
-                fetch("/admin", options)
+                fetch("/update-item", options)
                     .then(response => {
-                        location.reload();
+                        /*location.reload();*/
                     })
             })
 
@@ -405,28 +393,52 @@
         })
     }
 
+    for (let i = 0; i < Array.from(document.querySelectorAll(".delete-item")).length; i++) {
+        Array.from(document.querySelectorAll(".delete-item"))[i].addEventListener("click", async (event) => {
+            const options = {
+                method: 'delete',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: JSON.parse(event.target.dataset.edit)._id,
+                }) // Convert JavaScript object to JSON string
+            };
+
+            // Make the fetch request
+            fetch("/delete-item", options)
+                .then(response => {
+                    location.reload();
+
+                })
+        })
+    }
+
 
     document.querySelector(".create-item").addEventListener("click", async () => {
-        document.querySelector(".create-item-submit").addEventListener("click", async () => {
+        console.log("click")
+        const addItems = document.querySelector(".addItems")
+
+        addItems.querySelector(".create-item-submit").addEventListener("click", async () => {
             const options = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    kazakhName: document.querySelector(".kazakh-name").value,
-                    englishName: document.querySelector(".english-name").value,
-                    kazakhDescription: document.querySelector(".kazakh-description").value,
-                    englishDescription: document.querySelector(".english-description").value,
-                    imageFirst: document.querySelector(".image-first").value,
-                    imageSecond: document.querySelector(".image-second").value,
-                    imageThree: document.querySelector(".image-three").value,
-                    dateCreation: document.querySelector(".date-create").value,
-                    dateUpdate: document.querySelector(".date-update").value
+                    kazakhName: addItems.querySelector(".kazakh-name").value,
+                    englishName: addItems.querySelector(".english-name").value,
+                    kazakhDescription: addItems.querySelector(".kazakh-description").value,
+                    englishDescription: addItems.querySelector(".english-description").value,
+                    imageFirst: addItems.querySelector(".image-first").value,
+                    imageSecond: addItems.querySelector(".image-second").value,
+                    imageThree: addItems.querySelector(".image-three").value,
+                    /*dateCreation: addItems.querySelector(".date-create").value,
+                    dateUpdate: addItems.querySelector(".date-update").value*/
                 })
             };
-            fetch("/create-user", options).then((response) => {
-                location.reload()
+            fetch("/create-item", options).then((response) => {
+                /*location.reload()*/
             })
         })
     })
@@ -441,6 +453,7 @@
 
 
         document.querySelector(".create-submit").addEventListener("click", async () => {
+            console.log("click")
             const options = {
                 method: 'POST',
                 headers: {
