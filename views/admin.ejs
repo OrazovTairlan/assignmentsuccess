@@ -43,7 +43,6 @@
                 </li>
 
 
-
                 <li class="nav-item">
                     <a class="nav-link" href="/">Login</a>
                 </li>
@@ -148,6 +147,143 @@
 
     <button class="btn btn-success create-btn" data-bs-toggle="modal" data-bs-target="#createModal">New User</button>
 </div>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Item management</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">User ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">Creation Date</th>
+                <th scope="col">Admin</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><%= user._id %></td>
+                    <td><%= user.username %></td>
+                    <td><%= user.creationDate %></td>
+                    <td><%= user.isAdmin %></td>
+                    <td>
+                        <button type="button" data-edit="<%= JSON.stringify(user) %>" class="btn btn-primary edit"
+                                data-bs-toggle="modal" data-bs-target="#exampleModal">Edit
+                        </button>
+                        <button type="button" data-edit="<%= JSON.stringify(user) %>" class="btn btn-danger delete">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editItems" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="kazakh-name" class="col-form-label">Kazakh name</label>
+                        <input type="text" class="form-control kazakh-name" id="kazakh-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="english-name" class="col-form-label">English name</label>
+                        <input type="text" class="form-control english-name" id="english-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="kazakh-description" class="col-form-label">Kazakh description</label>
+                        <input type="text" class="form-control kazakh-description" id="kazakh-description">
+                    </div>
+                    <div class="mb-3">
+                        <label for="english-description" class="col-form-label">English description</label>
+                        <input type="text" class="form-control english-description" id="english-description">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image-first" class="col-form-label">Image first</label>
+                        <input type="text" class="form-control image-first" id="image-first">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image-second" class="col-form-label">Image second</label>
+                        <input type="text" class="form-control image-second" id="image-second">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image-three" class="col-form-label">Image three</label>
+                        <input type="text" class="form-control image-three" id="image-three">
+                    </div>
+                    <div class="mb-3">
+                        <label for="date-create" class="col-form-label">Date of creation</label>
+                        <input type="text" class="form-control date-create" id="date-create">
+                    </div>
+                    <div class="mb-3">
+                        <label for="date-update" class="col-form-label">Date of update</label>
+                        <input type="text" class="form-control date-update" id="date-update">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn create-submit btn-primary">Create User</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Modal -->
+    <div class="modal fade" id="addItems" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="kazakh-name" class="col-form-label">Kazakh name</label>
+                        <input type="text" class="form-control kazakh-name" id="kazakh-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="english-name" class="col-form-label">English name</label>
+                        <input type="text" class="form-control english-name" id="english-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="kazakh-description" class="col-form-label">Kazakh description</label>
+                        <input type="text" class="form-control kazakh-description" id="kazakh-description">
+                    </div>
+                    <div class="mb-3">
+                        <label for="english-description" class="col-form-label">English description</label>
+                        <input type="text" class="form-control english-description" id="english-description">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image-first" class="col-form-label">Image first</label>
+                        <input type="text" class="form-control image-first" id="image-first">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image-second" class="col-form-label">Image second</label>
+                        <input type="text" class="form-control image-second" id="image-second">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image-three" class="col-form-label">Image three</label>
+                        <input type="text" class="form-control image-three" id="image-three">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn create-submit btn-primary">Create User</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-success create-btn" data-bs-toggle="modal" data-bs-target="#addItems">New User</button>
+</div>
 </body>
 
 <script>
@@ -200,6 +336,53 @@
             })
         })
     }
+    for (let i = 0; i < Array.from(document.querySelectorAll(".edit-item")).length; i++) {
+        Array.from(document.querySelectorAll(".edit-item"))[i].addEventListener("click", async (event) => {
+            document.querySelector(".kazakh-name").value = JSON.parse(event.target.dataset.edit).name.kz
+            document.querySelector(".english-name").value = JSON.parse(event.target.dataset.edit).name.en
+            document.querySelector(".kazakh-description").value = JSON.parse(event.target.dataset.edit).description.kz
+            document.querySelector(".english-description").value = JSON.parse(event.target.dataset.edit).description.en
+            document.querySelector(".image-first").value = JSON.parse(event.target.dataset.edit).imageFirst
+            document.querySelector(".image-second").value = JSON.parse(event.target.dataset.edit).imageSecond
+            document.querySelector(".image-three").value = JSON.parse(event.target.dataset.edit).imageThree
+            document.querySelector(".date-create").value = JSON.parse(event.target.dataset.edit).dateCreate
+            document.querySelector(".date-update").value = JSON.parse(event.target.dataset.edit).dateUpdate
+            console.log(JSON.parse(event.target.dataset.edit))
+            console.log(event.target.closest("tr"))
+            document.querySelector(".edit-item-submit").addEventListener("click", async () => {
+                const options = {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: JSON.parse(event.target.dataset.edit)._id,
+                        kazakhName: document.querySelector(".kazakh-name").value,
+                        englishName: document.querySelector(".english-name").value,
+                        kazakhDescription: document.querySelector(".kazakh-description").value,
+                        englishDescription: document.querySelector(".english-description").value,
+                        imageFirst: document.querySelector(".image-first").value,
+                        imageSecond: document.querySelector(".image-second").value,
+                        imageThree: document.querySelector(".image-three").value,
+                        dateCreation: document.querySelector(".date-create").value,
+                        dateUpdate: document.querySelector(".date-update").value
+                    }) // Convert JavaScript object to JSON string
+                };
+
+                // Make the fetch request
+                fetch("/admin", options)
+                    .then(response => {
+                        location.reload();
+                    })
+            })
+
+
+            document.querySelector(".edit-admin").addEventListener("change", (event) => {
+                console.log(event.target.checked)
+                checked = event.target.checked
+            })
+        })
+    }
     for (let i = 0; i < Array.from(document.querySelectorAll(".delete")).length; i++) {
         Array.from(document.querySelectorAll(".delete"))[i].addEventListener("click", async (event) => {
             console.log(JSON.parse(event.target.dataset.edit))
@@ -221,6 +404,32 @@
                 })
         })
     }
+
+
+    document.querySelector(".create-item").addEventListener("click", async () => {
+        document.querySelector(".create-item-submit").addEventListener("click", async () => {
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    kazakhName: document.querySelector(".kazakh-name").value,
+                    englishName: document.querySelector(".english-name").value,
+                    kazakhDescription: document.querySelector(".kazakh-description").value,
+                    englishDescription: document.querySelector(".english-description").value,
+                    imageFirst: document.querySelector(".image-first").value,
+                    imageSecond: document.querySelector(".image-second").value,
+                    imageThree: document.querySelector(".image-three").value,
+                    dateCreation: document.querySelector(".date-create").value,
+                    dateUpdate: document.querySelector(".date-update").value
+                })
+            };
+            fetch("/create-user", options).then((response) => {
+                location.reload()
+            })
+        })
+    })
     document.querySelector(".create-btn").addEventListener("click", async () => {
         const input = document.querySelector(".create-username")
         const password = document.querySelector(".create-password")
